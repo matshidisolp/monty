@@ -1,20 +1,23 @@
 #include "monty.h"
-
 /**
- * f_pop - removes the top element of the stack
+ * f_pop - prints the top
  * @head: stack head
  * @counter: line_number
  * Return: no return
- */
+*/
 void f_pop(stack_t **head, unsigned int counter)
 {
-	if (!head || !*head)
+	stack_t *h;
+
+	if (*head == NULL)
 	{
 		fprintf(stderr, "L%d: can't pop an empty stack\n", counter);
-		handle_error_and_exit();
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
+		exit(EXIT_FAILURE);
 	}
-
-	stack_t *temp = *head;
-	*head = temp->next;
-	free(temp);
+	h = *head;
+	*head = h->next;
+	free(h);
 }

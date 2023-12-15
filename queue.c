@@ -1,11 +1,10 @@
 #include "monty.h"
-
 /**
- * f_queue - sets the queue mode
+ * f_queue - prints the top
  * @head: stack head
  * @counter: line_number
  * Return: no return
- */
+*/
 void f_queue(stack_t **head, unsigned int counter)
 {
 	(void)head;
@@ -15,35 +14,34 @@ void f_queue(stack_t **head, unsigned int counter)
 
 /**
  * addqueue - add node to the tail stack
- * @head: head of the stack
  * @n: new_value
+ * @head: head of the stack
  * Return: no return
- */
+*/
 void addqueue(stack_t **head, int n)
 {
-	stack_t *new_node = malloc(sizeof(stack_t));
+	stack_t *new_node, *aux;
 
-	if (!new_node)
+	aux = *head;
+	new_node = malloc(sizeof(stack_t));
+	if (new_node == NULL)
 	{
-		fprintf(stderr, "Error: Memory allocation failed in addqueue\n");
-		exit(EXIT_FAILURE);
+		printf("Error\n");
 	}
-
 	new_node->n = n;
 	new_node->next = NULL;
-
-	if (*head == NULL)
+	if (aux)
+	{
+		while (aux->next)
+			aux = aux->next;
+	}
+	if (!aux)
 	{
 		*head = new_node;
 		new_node->prev = NULL;
 	}
 	else
 	{
-		stack_t *aux = *head;
-
-		while (aux->next)
-			aux = aux->next;
-
 		aux->next = new_node;
 		new_node->prev = aux;
 	}
